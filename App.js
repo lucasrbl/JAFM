@@ -4,6 +4,6 @@ import { MyCarousel } from './components/screens/Carousel/Carousel';
 
 export default function App() {
   return (
-    <MyCarousel />
+    <Welcome />
   );
 }

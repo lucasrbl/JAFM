@@ -2,11 +2,11 @@ import { StyleSheet, View } from "react-native"
 import { CustomText } from "../../CustomText/CustomText"
 import { CustomButton } from "../../CustomButton/CustomButton"
 
-export const Welcome = () => {
+export const Welcome: React.FC = () => {
     const styles = StyleSheet.create({
         wrapper: {
             flex: 1,
-            backgroundColor: 'red'
+            backgroundColor: "#F65151"
         },
 
         content: {
@@ -37,7 +37,7 @@ export const Welcome = () => {
 
             
                 <View style={styles.buttonContainer}>
-                    <CustomButton title='Criar conta' bgColor='blue' width={300} padding={16} radius={12} size={16} />
+                    <CustomButton title='Criar conta' bgColor='#b32222' width={300} padding={16} radius={12} size={16} />
                     <CustomButton title='Entrar' border={1} color='white' width={300} padding={16} radius={12} size={16}/>
                 </View>
             </View>
