@@ -1,4 +1,11 @@
-export const data = [
+export interface dataInterface {
+  title: string;
+  body: string;
+  imgUrl: string;
+}
+
+
+export const data: dataInterface[] = [
     {
       title: "Aenean leo",
       body: "Ut tincidunt tincidunt erat. Sed cursus turpis vitae tortor. Quisque malesuada placerat nisl. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.",
