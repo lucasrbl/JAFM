@@ -12,6 +12,8 @@ interface Props {
     color?: string;
     size?: number;
     fontWeight?: any;
+    marginTop?: number;
+
 }
 
 export const CustomButton:React.FC<Props> = ({
@@ -25,7 +27,8 @@ export const CustomButton:React.FC<Props> = ({
     radius,
     color,
     size,
-    fontWeight
+    fontWeight,
+    marginTop
 }) => {
     const styles = StyleSheet.create({
         button: {
@@ -35,7 +38,8 @@ export const CustomButton:React.FC<Props> = ({
             borderWidth: border,
             borderColor: borderColor,
             backgroundColor: bgColor,
-            borderRadius: radius
+            borderRadius: radius,
+            marginTop: marginTop
         },
 
         buttonText: {

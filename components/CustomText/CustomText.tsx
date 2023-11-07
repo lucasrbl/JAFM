@@ -3,25 +3,31 @@ import { Text, StyleSheet } from "react-native"
 
 interface Props {
     size?: number;
-    fontWeight?: any,
+    fontWeight?: "normal" | "bold" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900"
     color?: string;
     width?: number;
     text?: string;
+    border?: number;
 }
+
+
+
 
 export const CustomText: React.FC<Props> = ({
     size,
     fontWeight,
     color,
     width,
-    text
+    text,
+    border
 }) =>{
     const styles = StyleSheet.create({
         text: {
             fontSize: size,
             fontWeight: fontWeight,
             color: color,
-            width: width
+            width: width,
+            borderWidth: border
         }
     })
 
