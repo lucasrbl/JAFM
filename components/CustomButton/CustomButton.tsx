@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text, StyleSheet } from "react-native"
+import { TouchableOpacity, Text, StyleSheet, GestureResponderEvent } from "react-native";
 
 interface Props {
     title: string;
@@ -13,7 +13,7 @@ interface Props {
     size?: number;
     fontWeight?: any;
     marginTop?: number;
-
+    onPress?: (event: GestureResponderEvent) => void;
 }
 
 export const CustomButton:React.FC<Props> = ({
@@ -28,7 +28,8 @@ export const CustomButton:React.FC<Props> = ({
     color,
     size,
     fontWeight,
-    marginTop
+    marginTop,
+    onPress
 }) => {
     const styles = StyleSheet.create({
         button: {
@@ -51,7 +52,7 @@ export const CustomButton:React.FC<Props> = ({
     })
 
     return (
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={onPress}>
             <Text style={styles.buttonText}>
                 {title}
             </Text>

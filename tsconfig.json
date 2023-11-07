@@ -1,5 +1,8 @@
 {
     "compilerOptions": {
+      "paths": {
+        "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
+      },
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
       "isolatedModules": true,

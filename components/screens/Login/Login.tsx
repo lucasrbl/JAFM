@@ -1,11 +1,31 @@
+import React, { useState } from "react";
 import { View, StyleSheet } from "react-native"
 import { CustomInput } from "../../CustomInput/CustomInput";
 import { CustomText } from "../../CustomText/CustomText";
 import { CustomButton } from "../../CustomButton/CustomButton";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../src/config/firebase";
 
 
 export const Login:React.FC = () => {
-
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+    // const [errorLogin, setErrorLogin] = useState("");
+    auth;
+    const login = () => {
+                signInWithEmailAndPassword(auth, email, pass)
+                  .then((userCredential) => {
+                    // Signed in
+                    const user = userCredential.user;
+                    // ...
+                  })
+                  .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message
+                    console.log("login incorreto" + errorCode + errorMessage);
+                  });
+    }
+    
   return (
   <View style={styles.wrapper}>
         <View style={styles.containerText}>
@@ -17,7 +37,8 @@ export const Login:React.FC = () => {
             <CustomInput 
                 height={45} 
                 width={340} 
-                placeholder="Email" 
+                placeholder="Email"
+                onChangeText={(text) => setEmail(text)}
                 placeholderColor="#868686" 
                 color="#e9dfdf" 
                 border={1} 
@@ -29,7 +50,8 @@ export const Login:React.FC = () => {
             <CustomInput 
                 height={45} 
                 width={340} 
-                placeholder="Senha" 
+                placeholder="Senha"
+                onChangeText={(text) => setPass(text)}
                 placeholderColor="#868686" 
                 color="#e9dfdf" 
                 border={1} 
@@ -37,7 +59,7 @@ export const Login:React.FC = () => {
                 padding={15}
                 radius={10}
                 />
-                <CustomButton title="Entrar" border={1} bgColor="grey" color="#FFFFFF" width={340} padding={16} radius={12} size={16} marginTop={30}/>
+                <CustomButton title="Entrar" border={1} bgColor="grey" color="#FFFFFF" width={340} padding={16} radius={12} size={16} marginTop={30} onPress={login}/>
                 <CustomButton title="Esqueceu a senha?" border={1} color="#77767E" width={340} padding={16} radius={12} size={16}/>
             </View>
         </View>

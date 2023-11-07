@@ -6,6 +6,6 @@ import { Login } from './components/screens/Login/Login';
 
 export default function App() {
   return (
-    <Login />
+    <Register />
   );
 }
