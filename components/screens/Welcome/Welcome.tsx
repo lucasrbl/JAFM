@@ -1,12 +1,12 @@
 import { StyleSheet, View, Image } from "react-native"
 import { CustomText } from "../../CustomText/CustomText"
 import { CustomButton } from "../../CustomButton/CustomButton"
+import { LinearGradient } from "expo-linear-gradient"
 
 export const Welcome: React.FC = () => {
     const styles = StyleSheet.create({
         wrapper: {
             flex: 1,
-            backgroundColor: "#F65151"
         },
 
         content: {
@@ -24,14 +24,23 @@ export const Welcome: React.FC = () => {
             alignItems: "center",
             gap: 5,
             marginBottom: 30
+        },
+
+        image: {
+            top: 80,
+            left: 5.5
+        },
+
+        linearGradient: {
+            width: "100%",
+            height: "100%"
         }
     })
 
     return (
+       <LinearGradient colors={["#F65151", "rgba(0, 0, 0, .95)"]} style={styles.linearGradient}> 
         <View style={styles.wrapper}>
-            <Image source={require("../../../assets/tela-inicial.png")}
-                   height={500}
-                   width={1000} />
+            <Image source={require("../../../assets/tela-inicial.png")} style={styles.image} resizeMode="cover" />
            <View style={styles.content}> 
             <View style={styles.textContainer}>
                 <CustomText text="Bem-vindo ao JAFM!" color="#FFFFFF" size={36} fontWeight="bold" />
@@ -40,10 +49,13 @@ export const Welcome: React.FC = () => {
 
             
                 <View style={styles.buttonContainer}>
-                    <CustomButton title="Criar conta" bgColor="#B32222" width={300} padding={16} radius={12} size={16} />
-                    <CustomButton title="Entrar" border={1} color="#FFFFFF" width={300} padding={16} radius={12} size={16}/>
+                    <LinearGradient colors={["#F65151", "#962727"]}>
+                        <CustomButton title="Criar conta" width={300} padding={16} radius={8} size={16} />
+                    </LinearGradient>
+                    <CustomButton title="Entrar" color="#FFFFFF" width={300} padding={16} radius={12} size={16}/>
                 </View>
             </View>
         </View>
+        </LinearGradient>
     )
 }
