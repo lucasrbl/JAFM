@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text, StyleSheet, GestureResponderEvent } from "react-native";
+import { TouchableOpacity, Text, StyleSheet, GestureResponderEvent } from "react-native"
 
 interface Props {
     title: string;
@@ -8,12 +8,13 @@ interface Props {
     border?: number;
     borderColor?: string;
     bgColor?: string;
-    radius: number;
+    radius?: number;
     color?: string;
     size?: number;
     fontWeight?: any;
     marginTop?: number;
-    onPress?: (event: GestureResponderEvent) => void;
+    onPress?: (event: GestureResponderEvent) => void
+
 }
 
 export const CustomButton:React.FC<Props> = ({
