@@ -2,8 +2,12 @@ import { StyleSheet, View, Image } from "react-native"
 import { CustomText } from "../../CustomText/CustomText"
 import { CustomButton } from "../../CustomButton/CustomButton"
 import { LinearGradient } from "expo-linear-gradient"
+import { useNavigation } from "@react-navigation/native"
+import { StackTypes } from "../../routes/AppNavigator"
+
 
 export const Welcome: React.FC = () => {
+
     const styles = StyleSheet.create({
         wrapper: {
             flex: 1,
@@ -34,8 +38,15 @@ export const Welcome: React.FC = () => {
         linearGradient: {
             width: "100%",
             height: "100%"
+        },
+
+        button: {
+            borderRadius: 8
         }
     })
+
+    const navigation = useNavigation<StackTypes>();
+
 
     return (
        <LinearGradient colors={["#F65151", "rgba(0, 0, 0, .95)"]} style={styles.linearGradient}> 
@@ -49,8 +60,8 @@ export const Welcome: React.FC = () => {
 
             
                 <View style={styles.buttonContainer}>
-                    <LinearGradient colors={["#F65151", "#962727"]}>
-                        <CustomButton title="Criar conta" width={300} padding={16} radius={8} size={16} />
+                    <LinearGradient colors={["#F65151", "#962727"]} style={styles.button}>
+                        <CustomButton title="Criar conta" width={300} padding={16} size={16} onPress={() => navigation.navigate("Register")} />
                     </LinearGradient>
                     <CustomButton title="Entrar" color="#FFFFFF" width={300} padding={16} radius={12} size={16}/>
                 </View>

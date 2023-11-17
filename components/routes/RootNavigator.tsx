@@ -17,7 +17,10 @@ const Tab = createBottomTabNavigator();
 
     return (
         <Tab.Navigator>
-            <Tab.Screen name="Welcome" component={Reports} />
+            <Tab.Screen name="Reports" component={Reports} options={{
+                headerShown: false,
+                
+            }}/>
             {/* <Tab.Screen name="Register" component={Register} />
             <Tab.Screen name="Login" component={Login} />
             <Tab.Screen name="Root" component={Root} /> */}

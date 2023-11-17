@@ -53,7 +53,7 @@ export const CarouselCard: React.FC<{ item: dataInterface }> = ({ item }) => {
 
     return (
         <View style={styles.container}>
-            <Image source={{uri: item.imgUrl}}
+            <Image source={item.imgUrl}
                    style={styles.image}
             />
             <Text style={styles.header}>{item.title}</Text>

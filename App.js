@@ -5,15 +5,13 @@ import { Login } from './components/screens/Login/Login';
 import { CustomCarousel } from './components/screens/Carousel/Carousel';
 import { MyStack } from './components/routes/AppNavigator';
 import { MyTab } from './components/routes/RootNavigator';
+import { Reports } from './components/screens/Reports/Reports';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
   return (
-    <MyStack/>
+    <NavigationContainer>
+      <Reports/>
+    </NavigationContainer>
   );
 }
-
-/*export functiron Root() {
-  return (
-    <MyTab />
-  )
-}*/
