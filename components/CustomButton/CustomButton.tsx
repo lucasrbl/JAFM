@@ -13,6 +13,9 @@ interface Props {
     size?: number;
     fontWeight?: any;
     marginTop?: number;
+    marginLeft?: number;
+    marginBottom?: number;
+    marginRight?: number;
     onPress?: (event: GestureResponderEvent) => void
 
 }
@@ -30,6 +33,9 @@ export const CustomButton:React.FC<Props> = ({
     size,
     fontWeight,
     marginTop,
+    marginLeft,
+    marginBottom,
+    marginRight,
     onPress
 }) => {
     const styles = StyleSheet.create({
@@ -41,7 +47,10 @@ export const CustomButton:React.FC<Props> = ({
             borderColor: borderColor,
             backgroundColor: bgColor,
             borderRadius: radius,
-            marginTop: marginTop
+            marginTop: marginTop,
+            marginBottom: marginBottom,
+            marginLeft: marginLeft,
+            marginRight: marginRight
         },
 
         buttonText: {

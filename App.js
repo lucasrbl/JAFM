@@ -7,11 +7,12 @@ import { MyStack } from './components/routes/AppNavigator';
 import { MyTab } from './components/routes/RootNavigator';
 import { Reports } from './components/screens/Reports/Reports';
 import { NavigationContainer } from '@react-navigation/native';
+import { Profile } from './components/Profile/Profile';
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Reports/>
+      <Profile/>
     </NavigationContainer>
   );
 }

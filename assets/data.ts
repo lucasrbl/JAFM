@@ -9,18 +9,18 @@ export interface dataInterface {
 
 export const data: dataInterface[] = [
     {
-      title: "Aenean leo",
-      body: "Ut tincidunt tincidunt erat. Sed cursus turpis vitae tortor. Quisque malesuada placerat nisl. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.",
+      title: "Veja seu desempenho",
+      body: "Com o JAFM você pode acompanhar sua jornada de constante melhoria",
       imgUrl: IMAGES.first
     },
     {
-      title: "In turpis",
-      body: "Aenean ut eros et nisl sagittis vestibulum. Donec posuere vulputate arcu. Proin faucibus arcu quis ante. Curabitur at lacus ac velit ornare lobortis. ",
+      title: "Conquiste certificados",
+      body: "Seu esforço é real para nós, legitimamos o seu aprendizado no JAFM",
       imgUrl: IMAGES.second,
     },
     {
-      title: "Lorem Ipsum",
-      body: "Phasellus ullamcorper ipsum rutrum nunc. Nullam quis ante. Etiam ultricies nisi vel augue. Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc.",
+      title: "Rápido e prático",
+      body: "Sem stress. Nos esforçamos para entregar o melhor serviço para nossos colaboradores",
       imgUrl: IMAGES.third,
     },
   ];
