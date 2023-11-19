@@ -25,6 +25,7 @@ export const ReportsForms:React.FC = () => {
       }
     });
 
+    console.log("userid " + userUid);
     // Cleanup function
     return () => unsubscribe();
   }, []);
@@ -35,7 +36,8 @@ export const ReportsForms:React.FC = () => {
         nome,
         email,
         telefone,
-        dataNascimento
+        dataNascimento,
+        userUid
       });
     } catch (error) {
       console.error("Erro ao gerar relatorio:", error);
