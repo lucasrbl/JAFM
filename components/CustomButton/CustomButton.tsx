@@ -1,19 +1,23 @@
-import { TouchableOpacity, Text, StyleSheet, GestureResponderEvent } from "react-native";
+import { TouchableOpacity, Text, StyleSheet, GestureResponderEvent } from "react-native"
 
 interface Props {
     title: string;
     width: number;
     height?: number
-    padding: number;
+    padding?: number;
     border?: number;
     borderColor?: string;
     bgColor?: string;
-    radius: number;
+    radius?: number;
     color?: string;
     size?: number;
     fontWeight?: any;
     marginTop?: number;
-    onPress?: (event: GestureResponderEvent) => void;
+    marginLeft?: number;
+    marginBottom?: number;
+    marginRight?: number;
+    onPress?: (event: GestureResponderEvent) => void
+
 }
 
 export const CustomButton:React.FC<Props> = ({
@@ -29,6 +33,9 @@ export const CustomButton:React.FC<Props> = ({
     size,
     fontWeight,
     marginTop,
+    marginLeft,
+    marginBottom,
+    marginRight,
     onPress
 }) => {
     const styles = StyleSheet.create({
@@ -40,7 +47,10 @@ export const CustomButton:React.FC<Props> = ({
             borderColor: borderColor,
             backgroundColor: bgColor,
             borderRadius: radius,
-            marginTop: marginTop
+            marginTop: marginTop,
+            marginBottom: marginBottom,
+            marginLeft: marginLeft,
+            marginRight: marginRight
         },
 
         buttonText: {
