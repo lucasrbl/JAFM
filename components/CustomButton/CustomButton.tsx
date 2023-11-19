@@ -4,7 +4,7 @@ interface Props {
     title: string;
     width: number;
     height?: number
-    padding: number;
+    padding?: number;
     border?: number;
     borderColor?: string;
     bgColor?: string;

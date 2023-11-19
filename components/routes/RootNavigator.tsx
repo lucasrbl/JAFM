@@ -1,6 +1,7 @@
 import { createBottomTabNavigator, BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import React from "react"
 import { Reports } from "../screens/Reports/Reports";
+import { Profile } from "../Profile/Profile";
 
  type TabParams = {
     Welcome: undefined;
@@ -18,12 +19,12 @@ const Tab = createBottomTabNavigator();
     return (
         <Tab.Navigator>
             <Tab.Screen name="Reports" component={Reports} options={{
-                headerShown: false,
+                headerShown: false
                 
             }}/>
-            {/* <Tab.Screen name="Register" component={Register} />
-            <Tab.Screen name="Login" component={Login} />
-            <Tab.Screen name="Root" component={Root} /> */}
+            <Tab.Screen name="Register" component={Profile} options={{
+                headerShown: false
+            }} />
         </Tab.Navigator>
     )
 }
