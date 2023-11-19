@@ -16,6 +16,7 @@ export const Register:React.FC = () => {
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
   const [sexo, setSexo] = useState("");
+  const [userID, setUserUid] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
 
   const handleSignUp = async () => {
@@ -23,8 +24,9 @@ export const Register:React.FC = () => {
       // Crie o usuário no Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
+      setUserUid(user.uid);
       // Salve outras informações do usuário na coleção "users"
+
       await setDoc(doc(db, "users", user.uid), {
         email,
         telefone,
@@ -32,13 +34,12 @@ export const Register:React.FC = () => {
         cpf,
         sexo,
         dataNascimento,
+        userID
       });
 
       console.log("Usuário cadastrado com sucesso:", user);
-      // Você pode navegar para a próxima tela ou fazer qualquer outra ação aqui
     } catch (error) {
       console.error("Erro ao cadastrar usuário:", error);
-      // Trate o erro aqui (por exemplo, exiba uma mensagem de erro)
     }
   };
 
