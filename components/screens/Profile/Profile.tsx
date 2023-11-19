@@ -1,7 +1,7 @@
 import React from "react"
 import { View, StyleSheet } from "react-native"
-import { CustomButton } from "../CustomButton/CustomButton"
-import { CustomText } from "../CustomText/CustomText"
+import { CustomButton } from "../../CustomButton/CustomButton"
+import { CustomText } from "../../CustomText/CustomText"
 
 export const Profile: React.FC = () => {
     return (

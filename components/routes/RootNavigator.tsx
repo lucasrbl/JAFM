@@ -1,7 +1,7 @@
 import { createBottomTabNavigator, BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import React from "react"
 import { Reports } from "../screens/Reports/Reports";
-import { Profile } from "../Profile/Profile";
+import { Profile } from "../screens/Profile/Profile";
 
  type TabParams = {
     Welcome: undefined;

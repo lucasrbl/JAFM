@@ -1,6 +1,6 @@
 import React from "react"
 import { View, StyleSheet } from "react-native"
-import { CustomText } from "../CustomText/CustomText"
+import { CustomText } from "../../CustomText/CustomText"
 import * as Progress from "react-native-progress"
 export const ReportsPerformance: React.FC = () => {
     return (
