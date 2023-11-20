@@ -3,9 +3,14 @@ import { CustomInput } from "../../CustomInput/CustomInput";
 import { CustomText } from "../../CustomText/CustomText";
 import { CustomButton } from "../../CustomButton/CustomButton";
 import RNPickerSelect from "react-native-picker-select";
+import { useNavigation } from "@react-navigation/native"
+import { StackTypes } from "../../routes/AppNavigator"
 
 
 export const Register:React.FC = () => {
+
+  const navigation = useNavigation<StackTypes>();
+
 
   const pickerStyles = {
     inputIOS: styles.pickerInput,
@@ -104,7 +109,7 @@ export const Register:React.FC = () => {
         padding={15}
         radius={10}
         />
-        <CustomButton title="Criar" border={1} bgColor="grey" color="#FFFFFF" width={340} padding={16} radius={12} size={16}/>
+        <CustomButton title="Criar" border={1} bgColor="grey" color="#FFFFFF" width={340} padding={16} radius={12} size={16} onPress={() => navigation.navigate("Tab")}/>
     </View>
   </View>
   )
@@ -136,11 +141,13 @@ const styles = StyleSheet.create({
       height: 45,
       borderWidth: 1,
       borderColor: "#868686",
-      borderRadius: 10
+      borderRadius: 10,
+      
     },
     pickerInput: {
       borderWidth: 1,
       borderColor: "#868686",
       color: "#868686",
+      bottom: 7
     },
   })

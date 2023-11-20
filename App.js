@@ -13,7 +13,7 @@ import { ReportsPerformance } from './components/screens/ReportsPerformance/Repo
 export default function App() {
   return (
     <NavigationContainer>
-      <Profile/>
+      <MyStack/>
     </NavigationContainer>
   );
 }

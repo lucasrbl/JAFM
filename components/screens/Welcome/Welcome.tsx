@@ -63,7 +63,7 @@ export const Welcome: React.FC = () => {
                     <LinearGradient colors={["#F65151", "#962727"]} style={styles.button}>
                         <CustomButton title="Criar conta" width={300} padding={16} size={16} onPress={() => navigation.navigate("Register")} />
                     </LinearGradient>
-                    <CustomButton title="Entrar" color="#FFFFFF" width={300} padding={16} radius={12} size={16}/>
+                    <CustomButton title="Entrar" color="#FFFFFF" width={300} padding={16} radius={12} size={16} onPress={() => navigation.navigate("Login")}/>
                 </View>
             </View>
         </View>

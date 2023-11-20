@@ -4,11 +4,13 @@ import Carousel, { Pagination } from "react-native-snap-carousel"
 import { data, dataInterface } from "../../../assets/data";
 import { CarouselCard, ITEM_WIDTH, SLIDER_WIDTH } from "../CarouselCard/CarouselCard";
 import { CustomButton } from "../../CustomButton/CustomButton";
-
+import { useNavigation } from "@react-navigation/native"
+import { StackTypes } from "../../routes/AppNavigator"
 
 export const CustomCarousel: React.FC = () => {
     const _carousel = useRef<any>(null);
     const [index, setIndex] = React.useState(0);
+    const navigation = useNavigation<StackTypes>();
 
     return (
     <View style={styles.container}>
@@ -47,7 +49,7 @@ export const CustomCarousel: React.FC = () => {
             }}
             />
           </View>
-    <CustomButton title="Avançar" width={340} bgColor="#F65151" padding={16} radius={8} marginLeft={25} size={17} fontWeight="bold"/>
+    <CustomButton title="Avançar" width={340} bgColor="#F65151" padding={16} radius={8} marginLeft={25} size={17} fontWeight="bold" onPress={() => navigation.navigate("Welcome")}/>
     </View>
 </View>
     )
