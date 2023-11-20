@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { View, StyleSheet } from "react-native"
 import { CustomInput } from "../../CustomInput/CustomInput";
 import { CustomText } from "../../CustomText/CustomText";
@@ -11,6 +12,44 @@ export const Register:React.FC = () => {
 
   const navigation = useNavigation<StackTypes>();
 
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../../../src/config/firebase";
+import { doc, setDoc } from 'firebase/firestore';
+
+export const Register:React.FC = () => {
+
+  const [email, setEmail] = useState("");
+  const [password, setPass] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [nome, setNome] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [sexo, setSexo] = useState("");
+  const [userID, setUserUid] = useState("");
+  const [dataNascimento, setDataNascimento] = useState("");
+
+  const handleSignUp = async () => {
+    try {
+      // Crie o usuário no Firebase Authentication
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      setUserUid(user.uid);
+      // Salve outras informações do usuário na coleção "users"
+
+      await setDoc(doc(db, "users", user.uid), {
+        email,
+        telefone,
+        nome,
+        cpf,
+        sexo,
+        dataNascimento,
+        userID
+      });
+
+      console.log("Usuário cadastrado com sucesso:", user);
+    } catch (error) {
+      console.error("Erro ao cadastrar usuário:", error);
+    }
+  };
 
   const pickerStyles = {
     inputIOS: styles.pickerInput,
@@ -30,7 +69,8 @@ export const Register:React.FC = () => {
       <CustomInput 
         height={45} 
         width={340} 
-        placeholder="Email" 
+        placeholder="Email"
+        onChangeText={(text) => setEmail(text)}
         placeholderColor="#868686" 
         color="#e9dfdf" 
         border={1} 
@@ -42,7 +82,8 @@ export const Register:React.FC = () => {
       <CustomInput 
         height={45} 
         width={340} 
-        placeholder="Telefone" 
+        placeholder="Telefone"
+        onChangeText={(text) => setTelefone(text)}
         placeholderColor="#868686" 
         color="#e9dfdf" 
         border={1} 
@@ -54,7 +95,8 @@ export const Register:React.FC = () => {
       <CustomInput 
         height={45} 
         width={340} 
-        placeholder="Nome completo" 
+        placeholder="Nome completo"
+        onChangeText={(text) => setNome(text)}
         placeholderColor="#868686" 
         color="#e9dfdf" 
         border={1} 
@@ -66,7 +108,8 @@ export const Register:React.FC = () => {
       <CustomInput 
         height={45} 
         width={340} 
-        placeholder="CPF" 
+        placeholder="CPF"
+        onChangeText={(text) => setCpf(text)}
         placeholderColor="#868686"
         color="#e9dfdf" 
         border={1} 
@@ -78,7 +121,8 @@ export const Register:React.FC = () => {
       <CustomInput 
         height={45} 
         width={340} 
-        placeholder="Senha" 
+        placeholder="Senha"
+        onChangeText={(text) => setPass(text)}
         placeholderColor="#868686" 
         color="#e9dfdf" 
         border={1} 
@@ -89,7 +133,7 @@ export const Register:React.FC = () => {
 
         <View style={styles.gender}>
         <RNPickerSelect
-          onValueChange={(value) => console.log(value)}
+          onValueChange={(value) => setSexo(value)}
           items={[
             { label: "Masculino", key: "Masculino", value: "Masculino" },
             { label: "Feminino", key: "Feminino", value: "Feminino" },
@@ -99,17 +143,19 @@ export const Register:React.FC = () => {
         </View>
 
       <CustomInput 
-        height={45} 
-        width={340} 
-        placeholder="Data de nascimento" 
-        placeholderColor="#868686" 
-        color="#e9dfdf" 
-        border={1} 
-        borderColor="#868686" 
+        height={45}
+        width={340}
+        placeholder="Data de nascimento"
+        onChangeText={(text) => setDataNascimento(text)}
+        placeholderColor="#868686"
+        color="#e9dfdf"
+        border={1}
+        borderColor="#868686"
         padding={15}
         radius={10}
         />
         <CustomButton title="Criar" border={1} bgColor="grey" color="#FFFFFF" width={340} padding={16} radius={12} size={16} onPress={() => navigation.navigate("Tab")}/>
+        <CustomButton title="Criar" onPress={handleSignUp} border={1} bgColor="grey" color="#FFFFFF" width={340} padding={16} radius={12} size={16}/>
     </View>
   </View>
   )
