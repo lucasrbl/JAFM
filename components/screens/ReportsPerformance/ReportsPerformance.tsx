@@ -1,45 +1,177 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { View, StyleSheet } from "react-native"
 import { CustomText } from "../../CustomText/CustomText"
 import * as Progress from "react-native-progress"
+import { CustomButton } from "../../CustomButton/CustomButton";
+import { printToFileAsync } from "expo-print"
+import { shareAsync } from "expo-sharing"
+
+
 export const ReportsPerformance: React.FC = () => {
+    const [tasks, setTasks] = useState<number>()
+    const [attendance, setAttendance] = useState<number>()
+    const [cv, setCv] = useState<number>()
+    const [userInfo, setUserInfo] = useState<number>()
+    const [performance, setPerformance] = useState<number>()
+
+
+    useEffect(() => {
+        const generateRandomNumber = () => Math.floor(Math.random() * 100);
+
+        setTasks(generateRandomNumber());
+        setAttendance(generateRandomNumber());
+        setCv(generateRandomNumber());
+        setUserInfo(generateRandomNumber());
+        // Definindo o valor de performance como a média calculada
+    },[])
+    
+    useEffect(() => {
+        if (tasks !== undefined && attendance !== undefined && cv !== undefined && userInfo !== undefined) {
+            const average = (tasks + attendance + cv + userInfo) / 4;
+            setPerformance(average);
+        }
+    }, [tasks, attendance, cv, userInfo]);
+    
+    const html = `
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Relatório de Desempenho</title>
+        <style>
+            body {
+                background-color: #000000;
+                color: #FFFFFF;
+                padding: 25px;
+                font-family: Arial, sans-serif;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .card {
+                background-color: #232326;
+                width: 700px;
+                height: 270px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                margin-bottom: 15px;
+            }
+
+            .leftSide, .rightSide {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .roundedLine {
+                height: 90%;
+                width: 0.5px;
+                background-color: #77767E;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+            }
+
+            .last-card {
+                height: 265px;
+                margin-top: 30px;
+            }
+
+            .content {
+                margin-top: 35px;
+            }
+
+            
+        </style>
+    </head>
+    <body>
+        <div>
+            <h1 style= "font-size: 50px;">Desempenho individual</h1>
+        </div>
+
+        <div class="content">
+            <div class="card">
+            <div class="leftSide">
+                <span style="color: #FFFFFF; font-size: 56px; font-weight: bold;">${tasks}%</span>
+                <span style="color: #77767E; font-size: 42px; font-weight: bold;">Tarefas</span>
+            </div>
+            <div class="roundedLine"></div>
+            <div class="rightSide">
+                <span style="color: #FFFFFF; font-size: 56px; font-weight: bold;">${attendance}%</span>
+                <span style="color: #77767E; font-size: 42px; font-weight: bold;">Presença</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="leftSide">
+                <span style="color: #FFFFFF; font-size: 56px; font-weight: bold;">${cv}%</span>
+                <span style="color: #77767E; font-size: 42px; font-weight: bold; width: 50%;">Currículo concluído</span>
+            </div>
+            <div class="roundedLine"></div>
+            <div class="rightSide">
+                <span style="color: #FFFFFF; font-size: 56px; font-weight: bold;">${userInfo}%</span>
+                <span style="color: #77767E; font-size: 42px; font-weight: bold;">Presença</span>
+            </div>
+        </div>
+
+        <div class="card last-card">
+            <div class="leftSide">
+                <span style="color: #FFFFFF; font-size: 76px; font-weight: bold;">${performance}%</span>
+                <span style="color: #77767E; font-size: 42px; font-weight: bold;">Desempenho total</span>
+            </div>
+        </div
+    </body>
+    </html>`;
+
+
+
+    const handlePDF = async() => {
+        const file = await printToFileAsync({
+            html: html,
+            base64: false
+        })
+        await shareAsync(file.uri)
+    }
+
     return (
         <View style={styles.wrapper}>
             <View>
                 <CustomText text="Desempenho individual" color="#FFFFFF" />
             </View>
-
-            <CustomText text="Lucas Silva" color="#FFFFFF" size={25} fontWeight="bold" />
             <View style={styles.cardContainer}> 
                 <View style={styles.card}>
                     <View style={styles.leftSide}>
-                        <CustomText text="80%" color="#04BE00" size={32} fontWeight="bold" />
+                        <CustomText text={`${tasks}%`} color={tasks && tasks > 50 ? "#04BE00" : "#F65151"}   size={32} fontWeight="bold" />
                         <CustomText text="Tarefas concluídas" color="#77767E" />
                     </View>
                     <View style={styles.roundedLine} />
                     <View style={styles.rightSide}>
-                        <CustomText text="92%" color="#04BE00" size={32} fontWeight="bold" />
+                        <CustomText text={`${attendance}%`} color={attendance && attendance > 50 ? "#04BE00" : "#F65151"}  size={32} fontWeight="bold" />
                         <CustomText text="Presença" color="#77767E" />
                     </View>
                 </View>
 
                 <View style={styles.card}>
                     <View style={styles.leftSide}>
-                        <CustomText text="32%" color="#F65151" size={32} fontWeight="bold" />
+                        <CustomText text={`${cv}%`} color={cv && cv > 50 ? "#04BE00" : "#F65151"}   size={32} fontWeight="bold" />
                         <CustomText text="Currículo concluído" color="#77767E" />
                     </View>
 
                     <View style={styles.roundedLine} />
 
                     <View style={styles.rightSide}>
-                        <CustomText text="48%" color="#04BE00" size={32} fontWeight="bold" />
+                        <CustomText text={`${userInfo}%`} color={userInfo && userInfo > 50 ? "#04BE00" : "#F65151"}   size={32} fontWeight="bold" />
                         <CustomText text="Informações de cadastro na plataforma" color="#77767E" width={150} />
                     </View>
                 </View>
 
                 <View style={styles.card}>
                     <View style={styles.leftSide}>
-                        <CustomText text="83%" color="#04BE00" size={32} fontWeight="bold" />
+                        <CustomText text={`${performance}%`} color={performance && performance > 50 ? "#04BE00" : "#F65151"}   size={32} fontWeight="bold" />
                     </View>
 
                     <View style={styles.roundedLine} />
@@ -110,9 +242,9 @@ export const ReportsPerformance: React.FC = () => {
                         left: 20
                     }}>
                         <CustomText text="Desempenho > 10%   0 alunos" color="#FFFFFF"  />
+                   <CustomButton onPress={handlePDF} title="Gerar PDF" width={300} padding={16} size={16} color="#FFFFFF" marginTop={20}/>
                     </View>
                 </View>
-
             </View>
         </View>
     )
@@ -177,5 +309,11 @@ const styles = StyleSheet.create({
 
       progressText: {
         position: "absolute"
-      }
+      },
+
+      button: {
+        width: 300,
+        alignSelf: "center",
+        borderRadius: 8
+      },
 })

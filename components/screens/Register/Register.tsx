@@ -6,18 +6,16 @@ import { CustomButton } from "../../CustomButton/CustomButton";
 import RNPickerSelect from "react-native-picker-select";
 import { useNavigation } from "@react-navigation/native"
 import { StackTypes } from "../../routes/AppNavigator"
-
-
-export const Register:React.FC = () => {
-
-  const navigation = useNavigation<StackTypes>();
-
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../../src/config/firebase";
 import { doc, setDoc } from 'firebase/firestore';
 
-export const Register:React.FC = () => {
 
+
+
+
+export const Register:React.FC = () => {
+  
   const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
   const [telefone, setTelefone] = useState("");
@@ -26,7 +24,8 @@ export const Register:React.FC = () => {
   const [sexo, setSexo] = useState("");
   const [userID, setUserUid] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
-
+  const navigation = useNavigation<StackTypes>();
+  
   const handleSignUp = async () => {
     try {
       // Crie o usuário no Firebase Authentication
@@ -46,6 +45,7 @@ export const Register:React.FC = () => {
       });
 
       console.log("Usuário cadastrado com sucesso:", user);
+      navigation.navigate("Tab")
     } catch (error) {
       console.error("Erro ao cadastrar usuário:", error);
     }
@@ -154,7 +154,6 @@ export const Register:React.FC = () => {
         padding={15}
         radius={10}
         />
-        <CustomButton title="Criar" border={1} bgColor="grey" color="#FFFFFF" width={340} padding={16} radius={12} size={16} onPress={() => navigation.navigate("Tab")}/>
         <CustomButton title="Criar" onPress={handleSignUp} border={1} bgColor="grey" color="#FFFFFF" width={340} padding={16} radius={12} size={16}/>
     </View>
   </View>

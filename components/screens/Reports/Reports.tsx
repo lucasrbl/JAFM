@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { CustomText } from "../../CustomText/CustomText";
-import { View, StyleSheet, Image } from "react-native";
-import { CustomButton } from "../../CustomButton/CustomButton";
-import { LinearGradient } from "expo-linear-gradient";
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../../src/config/firebase";
+import { useNavigation } from "@react-navigation/core";
+import { StackTypes } from "../../routes/AppNavigator";
 
 export const Reports: React.FC = () => {
   const [userUid, setUserUid] = useState("");
   const [documentFound, setDocumentFound] = useState<string | null>(null);
   const [reportsWithId, setReportsWithId] = useState<any[]>([]);
+  const navigation = useNavigation<StackTypes>()
 
   const auth = getAuth();
 
@@ -66,29 +67,25 @@ export const Reports: React.FC = () => {
         </View>
         {documentFound === "Existe" ? (
           // Display the reports if they exist
-        <View>
+          <View style={styles.reportsContainer}>
             <CustomText text="Nomes" color="#FFFFFF" size={24} fontWeight="bold" />
-            <View style={{ marginTop: 10 }}>
+            <View style={styles.studentsContainer}>
                 {reportsWithId.map((report) => (
-                <CustomText key={report.id} text={report.nome} color="#FFFFFF" size={17} />
+                <TouchableOpacity key={report.id} onPress={() => navigation.navigate("ReportsPerformance")}>
+                  <CustomText key={report.id} text={report.nome} color="#FFFFFF" size={17} fontWeight="bold" backgroundColor="#7B4296" padding={15} radius={8} />
+                </TouchableOpacity>
                 ))}
             </View>
         </View>
 
         ) : (
           // Display a message if no reports are found
-          <View>
+          <View style={styles.NoReportsContainer}>
             <Image source={require("../../../assets/icone-relatorio.png")} style={styles.image} />
             <CustomText text="Nenhum relatório" color="#FFFFFF" size={34} fontWeight="bold" />
             <CustomText text="Você ainda não gerou nenhum relatório de desempenho individual" size={17} color="#9A99A2" />
           </View>
         )}
-      </View>
-
-      <View style={styles.buttonContainer}>
-        <LinearGradient colors={["#F65151", "#A33333"]} style={styles.button}>
-          <CustomButton title="Gerar Relatório" width={300} padding={16} size={16} color="#FFFFFF" />
-        </LinearGradient>
       </View>
     </View>
   );
@@ -105,7 +102,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        gap: 5,
+        gap: 5
     },
 
     image: {
@@ -129,5 +126,31 @@ const styles = StyleSheet.create({
         alignSelf: "flex-start",
         paddingLeft: 10,
         bottom: 150
+    },
+
+    NoReportsContainer: {
+      alignItems: "center"
+    },
+
+    roundedLine: {
+      height: 0.5,
+      width: "100%",
+      backgroundColor: "#77767E",
+      borderTopLeftRadius: 5,
+      borderTopRightRadius: 5
+    },
+
+    studentsContainer: {
+      marginTop: 10,
+      width: 340,
+      borderRadius: 8,
+      paddingTop: 8,
+      paddingBottom: 8,
+      paddingLeft: 15,
+      gap: 20
+    },
+
+    reportsContainer: {
+      bottom: 120
     }
 })

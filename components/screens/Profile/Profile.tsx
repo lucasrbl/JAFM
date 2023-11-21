@@ -1,24 +1,15 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { View, StyleSheet } from "react-native"
 import { CustomButton } from "../../CustomButton/CustomButton"
 import { CustomText } from "../../CustomText/CustomText"
 import { CustomInput } from "../../CustomInput/CustomInput"
-import { useNavigation, useIsFocused } from "@react-navigation/core"
+import { useNavigation} from "@react-navigation/core"
+import { StackTypes } from "../../routes/AppNavigator"
 
 export const Profile: React.FC = () => {
-    const [passwordChange, setPasswordChange] = useState(false);
-    const navigation = useNavigation()
-    const isFocused = useIsFocused();
+    const navigation = useNavigation<StackTypes>()
 
-    const handlePasswordChange = () => {
-        setPasswordChange(!passwordChange)
-    }
-
-    useEffect(() => {
-       if(isFocused) {
-        setPasswordChange(false)
-       }
-    },[isFocused])
+    
 
     return (
        <View style={styles.wrapper}>
@@ -27,8 +18,7 @@ export const Profile: React.FC = () => {
             <CustomText text="Perfil" fontWeight="bold" size={34} color="#FFFFFF" />
         </View>
         <View style={styles.userContainer}>
-            <CustomText text="Usuário 1" color="#FFFFFF" size={26} fontWeight="bold" />
-            <CustomText text="usuario@email.com" color="#9A99A2" size={16} />
+            <CustomText text="Informações de Usuário" color="#FFFFFF" size={26} fontWeight="bold" />
         </View>
         <View style={styles.statsContainer}>
             <View>
@@ -51,46 +41,12 @@ export const Profile: React.FC = () => {
         <View style={styles.roundedLine} />
 
         <View style={styles.configContainer}> 
-        {!passwordChange && (
-            <>
             <CustomText text="Configurações" color="#FFFFFF" size={22} />
             <View style={styles.buttonContainer}>
-                <CustomButton title="Excluir conta" width={340} color="#FF3B30"  />
-                <CustomButton title="Alterar senha" width={340} color="#FFFFFF" onPress={handlePasswordChange} />
-            </View>
-            </>
-        )}
-                { passwordChange ? (
-                <View style={styles.passwordContainer}>
-                    <CustomText text="Senha atual:" color="#FFFFFF"/>
-                    <CustomInput 
-                     height={45} 
-                     width={340} 
-                     placeholder="Digite a sua senha atual:" 
-                     placeholderColor="#868686" 
-                     color="#e9dfdf" 
-                     border={1} 
-                     borderColor="#868686"
-                     padding={15}
-                     radius={10} />
-
-                    <CustomText text="Nova senha:" color="#FFFFFF" />
-                    <CustomInput
-                     height={45} 
-                     width={340} 
-                     placeholder="Digite a nova senha" 
-                     placeholderColor="#868686" 
-                     color="#e9dfdf" 
-                     border={1} 
-                     borderColor="#868686"
-                     padding={15}
-                     radius={10}/>
-
-                <CustomButton title="Atualizar senha" border={1} bgColor="grey" color="#FFFFFF" width={340} padding={16} radius={12} size={16} onPress={handlePasswordChange}/>
+                <CustomButton title="Deslogar" width={340} color="#FFFFFF" bgColor="#FF3B30" padding={15} radius={8} onPress={() => navigation.navigate("Home")}  />
+            </View> 
                 </View>
-                ): null}
         </View>
-       </View>
     )
 }
 
@@ -134,8 +90,9 @@ const styles = StyleSheet.create({
     },
 
     buttonContainer: {
-        marginTop: 10,
-        gap: 10
+        marginTop: 20,
+        gap: 10,
+        alignItems: "center"
     },
 
     passwordContainer: {

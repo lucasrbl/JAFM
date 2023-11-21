@@ -5,7 +5,7 @@ import { CustomText } from "../../CustomText/CustomText";
 import { CustomButton } from "../../CustomButton/CustomButton";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { db } from "../../../src/config/firebase";
-import { doc, setDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import { LinearGradient } from "expo-linear-gradient"
 
 export const ReportsForms:React.FC = () => {
@@ -32,13 +32,14 @@ export const ReportsForms:React.FC = () => {
 
   const geraRelatorio = async () => {
     try { 
-      await setDoc(doc(db, "Reports", userUid), {
+      await addDoc(collection(db, "Reports"), {
         nome,
         email,
         telefone,
         dataNascimento,
         userUid
       });
+      console.log(userUid)
     } catch (error) {
       console.error("Erro ao gerar relatorio:", error);
     }
