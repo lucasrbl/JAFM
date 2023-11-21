@@ -19,7 +19,7 @@ export const CarouselCard: React.FC<{ item: dataInterface }> = ({ item }) => {
 
       const styles = StyleSheet.create<Style>({
         container: {
-          backgroundColor: '#161416',
+          backgroundColor: "#161416",
           borderRadius: 8,
           width: ITEM_WIDTH,
           paddingBottom: 40,
