@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, ScrollView } from "react-native"
+import { View, StyleSheet, ScrollView, TouchableOpacity } from "react-native"
 import { CustomInput } from "../../CustomInput/CustomInput";
 import { CustomText } from "../../CustomText/CustomText";
 import { CustomButton } from "../../CustomButton/CustomButton";
@@ -9,6 +9,8 @@ import { StackTypes } from "../../routes/AppNavigator"
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../../src/config/firebase";
 import { doc, setDoc } from 'firebase/firestore';
+import { Feather } from '@expo/vector-icons';
+
 
 export const Register: React.FC = () => {
 
@@ -20,6 +22,8 @@ export const Register: React.FC = () => {
   const [sexo, setSexo] = useState("");
   const [userID, setUserUid] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
+  const [show, setShow] = useState(false)
+
   const navigation = useNavigation<StackTypes>();
 
   const handleSignUp = async () => {
@@ -119,6 +123,7 @@ export const Register: React.FC = () => {
             height={48}
             width={340}
             placeholder="Senha"
+            password={!show}
             onChangeText={(text) => setPass(text)}
             placeholderColor="#868686"
             color="#e9dfdf"
@@ -126,7 +131,16 @@ export const Register: React.FC = () => {
             borderColor="#868686"
             padding={15}
             radius={10}
-          />
+          >
+            <TouchableOpacity onPress={() => setShow(!show)}>
+              {
+                !show ?
+                  <Feather name="eye-off" size={18} color="#fff" />
+                  :
+                  <Feather name="eye" size={18} color="#fff" />
+              }
+            </TouchableOpacity>
+          </CustomInput>
 
           <View style={styles.gender}>
             <RNPickerSelect
@@ -169,6 +183,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
     alignItems: "center",
+    marginBottom: 40
   },
 
   containerText: {
@@ -180,7 +195,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     flex: 6,
-    gap: 20
+    gap: 20,
   },
   gender: {
     width: 340,
