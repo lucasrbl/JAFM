@@ -19,7 +19,7 @@ type StackParams = {
   ReportsPerformance: undefined;
 }
 
-export type StackTypes =  StackNavigationProp<StackParams>;
+export type StackTypes = StackNavigationProp<StackParams>;
 
 export const MyStack: React.FC = () => {
   const Stack = createStackNavigator<StackParams>();
@@ -29,7 +29,17 @@ export const MyStack: React.FC = () => {
       <Stack.Screen name="Home" component={CustomCarousel} options={{ headerShown: false }} />
       <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
-      <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+      <Stack.Screen name="Login" component={Login} options={{
+        headerShown: true, 
+        headerStyle: {
+          backgroundColor: '#000',
+          borderBottomWidth: 0,
+          elevation: 0, 
+        },
+        headerTitle: 'Entrar', 
+        headerTitleAlign: 'center', 
+        headerTintColor: '#fff',
+      }} />
       <Stack.Screen name="Tab" component={LoggedStack} options={{ headerShown: false }} />
     </Stack.Navigator>
   );

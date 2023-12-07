@@ -33,13 +33,12 @@ export const Login:React.FC = () => {
   return (
   <View style={styles.wrapper}>
         <View style={styles.containerText}>
-            <CustomText text="Entrar" fontWeight="bold" size={20} color="#FFFFFF"/>
-            <CustomText text="Bem-vindo!" color="#FFFFFF" />
+            <CustomText text="Bem-vindo!" color="#FFFFFF" size={18} />
             </View>
 
             <View style={styles.inputContainer}>
             <CustomInput 
-                height={45} 
+                height={48} 
                 width={340} 
                 placeholder="Email"
                 onChangeText={(text) => setEmail(text)}
@@ -52,8 +51,9 @@ export const Login:React.FC = () => {
                 />
             
             <CustomInput 
-                height={45} 
+                height={48} 
                 width={340} 
+                password={true}
                 placeholder="Senha"
                 onChangeText={(text) => setPass(text)}
                 placeholderColor="#868686" 
@@ -63,7 +63,7 @@ export const Login:React.FC = () => {
                 padding={15}
                 radius={10}
                 />
-                <CustomButton title="Entrar" border={1} bgColor="grey" color="#FFFFFF" width={340} padding={16} radius={12} size={16} marginTop={30} onPress={login}/>
+                <CustomButton title="Entrar" border={1} bgColor="#4E4E53" color="#FFFFFF" width={340} height={48} padding={12} radius={12} size={16} marginTop={30} onPress={login}/>
                 <CustomButton title="Esqueceu a senha?" border={1} color="#77767E" width={340} padding={16} radius={12} size={16}/>
                 {errorLogin && (
                   <CustomText text="Senha ou email incorretos. Tente novamente" size={16} color="red"/>
