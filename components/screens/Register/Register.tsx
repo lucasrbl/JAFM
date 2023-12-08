@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native"
+import React, { useState } from "react";
+import { View, StyleSheet, ScrollView, TouchableOpacity } from "react-native"
 import { CustomInput } from "../../CustomInput/CustomInput";
 import { CustomText } from "../../CustomText/CustomText";
 import { CustomButton } from "../../CustomButton/CustomButton";
@@ -9,13 +9,11 @@ import { StackTypes } from "../../routes/AppNavigator"
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../../src/config/firebase";
 import { doc, setDoc } from 'firebase/firestore';
+import { Feather } from '@expo/vector-icons';
 
 
+export const Register: React.FC = () => {
 
-
-
-export const Register:React.FC = () => {
-  
   const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
   const [telefone, setTelefone] = useState("");
@@ -24,10 +22,9 @@ export const Register:React.FC = () => {
   const [sexo, setSexo] = useState("");
   const [userID, setUserUid] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
-  const navigation = useNavigation<StackTypes>();
-  const [passVisibility, setPassVisibility] = useState<boolean>()
+  const [show, setShow] = useState(false)
 
-  
+  const navigation = useNavigation<StackTypes>();
   const handleSignUp = async () => {
     try {
       // Crie o usuário no Firebase Authentication
@@ -56,7 +53,7 @@ export const Register:React.FC = () => {
   const pickerStyles = {
     inputIOS: styles.pickerInput,
     inputAndroid: styles.pickerInput,
-    placeholder: { color: "#868686"},
+    placeholder: { color: "#868686" },
   };
 
   useEffect(() => {
@@ -64,145 +61,157 @@ export const Register:React.FC = () => {
   },[])
 
   return (
-  <View style={styles.wrapper}>
+    <ScrollView style={styles.scroll}>
 
-    <View style={styles.containerText}>
-      <CustomText text="Criar conta" fontWeight="bold" size={20} color="#FFFFFF"/>
-      <CustomText text="Preencha o formulário abaixo para criar a conta" color="#868686" />
-    </View>
+      <View style={styles.wrapper}>
 
-    <View style={styles.inputContainer}>
-      <CustomInput 
-        height={45} 
-        width={340} 
-        placeholder="Email"
-        onChangeText={(text) => setEmail(text)}
-        placeholderColor="#868686" 
-        color="#e9dfdf" 
-        border={1} 
-        borderColor="#868686" 
-        padding={15}
-        radius={10}
-        />
-
-      <CustomInput 
-        height={45} 
-        width={340} 
-        placeholder="Telefone"
-        onChangeText={(text) => setTelefone(text)}
-        placeholderColor="#868686" 
-        color="#e9dfdf" 
-        border={1} 
-        borderColor="#868686" 
-        padding={15}
-        radius={10}
-        />
-        
-      <CustomInput 
-        height={45} 
-        width={340} 
-        placeholder="Nome completo"
-        onChangeText={(text) => setNome(text)}
-        placeholderColor="#868686" 
-        color="#e9dfdf" 
-        border={1} 
-        borderColor="#868686" 
-        padding={15}
-        radius={10}
-        />
-
-      <CustomInput 
-        height={45} 
-        width={340} 
-        placeholder="CPF"
-        onChangeText={(text) => setCpf(text)}
-        placeholderColor="#868686"
-        color="#e9dfdf" 
-        border={1} 
-        borderColor="#868686" 
-        padding={15}
-        radius={10}
-        />
-
-
-        <View style={styles.gender}>
-        <RNPickerSelect
-          onValueChange={(value) => setSexo(value)}
-          items={[
-            { label: "Masculino", key: "Masculino", value: "Masculino" },
-            { label: "Feminino", key: "Feminino", value: "Feminino" },
-            { label: "Outros", key: "Outros",  value: "Outros"}]}
-            placeholder={{ label: "Sexo", value: null}}
-            style={pickerStyles} />
+        <View style={styles.containerText}>
+          <CustomText text="Preencha o formulário abaixo para criar a conta" color="#868686" />
         </View>
 
-        <CustomInput 
-          height={45}
-          width={340}
-          placeholder="Data de nascimento"
-          onChangeText={(text) => setDataNascimento(text)}
-          placeholderColor="#868686"
-          color="#e9dfdf"
-          border={1}
-          borderColor="#868686"
-          padding={15}
-          radius={10}
-          password={true}
+        <View style={styles.inputContainer}>
+          <CustomInput
+            height={48}
+            width={340}
+            placeholder="Email"
+            onChangeText={(text) => setEmail(text)}
+            placeholderColor="#868686"
+            color="#e9dfdf"
+            border={1}
+            borderColor="#868686"
+            padding={15}
+            radius={10}
           />
 
+          <CustomInput
+            height={48}
+            width={340}
+            placeholder="Telefone"
+            onChangeText={(text) => setTelefone(text)}
+            placeholderColor="#868686"
+            color="#e9dfdf"
+            border={1}
+            borderColor="#868686"
+            padding={15}
+            radius={10}
+          />
 
-      <CustomInput 
-        height={45} 
-        width={340} 
-        placeholder="Senha"
-        onChangeText={(text) => setPass(text)}
-        placeholderColor="#868686" 
-        color="#e9dfdf" 
-        border={1} 
-        borderColor="#868686"
-        padding={15}
-        radius={10}
-        />
+          <CustomInput
+            height={48}
+            width={340}
+            placeholder="Nome completo"
+            onChangeText={(text) => setNome(text)}
+            placeholderColor="#868686"
+            color="#e9dfdf"
+            border={1}
+            borderColor="#868686"
+            padding={15}
+            radius={10}
+          />
 
-        <CustomButton title="Criar" onPress={handleSignUp} border={1} bgColor="grey" color="#FFFFFF" width={340} padding={16} radius={12} size={16}/>
-    </View>
-  </View>
+          <CustomInput
+            height={48}
+            width={340}
+            placeholder="CPF"
+            onChangeText={(text) => setCpf(text)}
+            placeholderColor="#868686"
+            color="#e9dfdf"
+            border={1}
+            borderColor="#868686"
+            padding={15}
+            radius={10}
+          />
+
+          <CustomInput
+            height={48}
+            width={340}
+            placeholder="Senha"
+            password={!show}
+            onChangeText={(text) => setPass(text)}
+            placeholderColor="#868686"
+            color="#e9dfdf"
+            border={1}
+            borderColor="#868686"
+            padding={15}
+            radius={10}
+          >
+            <TouchableOpacity onPress={() => setShow(!show)}>
+              {
+                !show ?
+                  <Feather name="eye-off" size={18} color="#fff" />
+                  :
+                  <Feather name="eye" size={18} color="#fff" />
+              }
+            </TouchableOpacity>
+          </CustomInput>
+
+          <View style={styles.gender}>
+            <RNPickerSelect
+              onValueChange={(value) => setSexo(value)}
+              items={[
+                { label: "Masculino", key: "Masculino", value: "Masculino" },
+                { label: "Feminino", key: "Feminino", value: "Feminino" },
+                { label: "Outros", key: "Outros", value: "Outros" }]}
+              placeholder={{ label: "Sexo", value: null }}
+              style={pickerStyles} />
+          </View>
+
+          <CustomInput
+            height={48}
+            width={340}
+            placeholder="Data de nascimento"
+            onChangeText={(text) => setDataNascimento(text)}
+            placeholderColor="#868686"
+            color="#e9dfdf"
+            border={1}
+            borderColor="#868686"
+            padding={15}
+            radius={10}
+          />
+          <CustomButton title="Criar" onPress={handleSignUp} border={1} bgColor="#4E4E53" color="#FFFFFF" height={48} width={340} padding={12} radius={12} size={16} />
+        </View>
+      </View>
+    </ScrollView>
+
   )
 }
 const styles = StyleSheet.create({
 
-    wrapper: {
+  scroll: {
+    backgroundColor: "#000"
+  },
+
+  wrapper: {
     backgroundColor: "#000000",
     flex: 1,
     justifyContent: "space-between",
-    alignItems: "center"
-    },
+    alignItems: "center",
+    marginBottom: 40
+  },
 
-    containerText: {
-      flex: 1,
-      alignItems: "center",
-      marginTop: 50,
-      marginBottom: 30,
-      gap: 30
-    },
+  containerText: {
+    flex: 1,
+    alignItems: "center",
+    marginTop: 10,
+    marginBottom: 32,
+  },
 
-    inputContainer: {
-      flex: 6,
-      marginBottom: 50,
-      gap: 20
-    },
-    gender: {
-      width: 340,
-      height: 45,
-      borderWidth: 1,
-      borderColor: "#868686",
-      borderRadius: 10,
-      
-    },
-    pickerInput: {
-      borderWidth: 1,
-      borderColor: "#868686",
-      color: "#868686",
-      bottom: 7
-    },
-  })
+  inputContainer: {
+    flex: 6,
+    gap: 20,
+  },
+  gender: {
+    width: 340,
+    height: 48,
+    borderWidth: 1,
+    borderColor: "#868686",
+    borderRadius: 10,
+
+  },
+  pickerInput: {
+    borderWidth: 1,
+    borderColor: "#868686",
+    color: "#868686",
+    bottom: 7
+  },
+})
