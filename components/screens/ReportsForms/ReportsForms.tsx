@@ -63,7 +63,7 @@ export const ReportsForms:React.FC = () => {
               border={1} 
               borderColor="#868686" 
               padding={15}
-              radius={10}
+              radius={10} 
               />
   
           <CustomInput 

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, StyleSheet } from "react-native"
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native"
 import { CustomInput } from "../../CustomInput/CustomInput";
 import { CustomText } from "../../CustomText/CustomText";
 import { CustomButton } from "../../CustomButton/CustomButton";
@@ -25,6 +25,8 @@ export const Register:React.FC = () => {
   const [userID, setUserUid] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const navigation = useNavigation<StackTypes>();
+  const [passVisibility, setPassVisibility] = useState<boolean>()
+
   
   const handleSignUp = async () => {
     try {
@@ -56,6 +58,10 @@ export const Register:React.FC = () => {
     inputAndroid: styles.pickerInput,
     placeholder: { color: "#868686"},
   };
+
+  useEffect(() => {
+    setPassVisibility(true)  
+  },[])
 
   return (
   <View style={styles.wrapper}>
@@ -118,6 +124,33 @@ export const Register:React.FC = () => {
         radius={10}
         />
 
+
+        <View style={styles.gender}>
+        <RNPickerSelect
+          onValueChange={(value) => setSexo(value)}
+          items={[
+            { label: "Masculino", key: "Masculino", value: "Masculino" },
+            { label: "Feminino", key: "Feminino", value: "Feminino" },
+            { label: "Outros", key: "Outros",  value: "Outros"}]}
+            placeholder={{ label: "Sexo", value: null}}
+            style={pickerStyles} />
+        </View>
+
+        <CustomInput 
+          height={45}
+          width={340}
+          placeholder="Data de nascimento"
+          onChangeText={(text) => setDataNascimento(text)}
+          placeholderColor="#868686"
+          color="#e9dfdf"
+          border={1}
+          borderColor="#868686"
+          padding={15}
+          radius={10}
+          password={true}
+          />
+
+
       <CustomInput 
         height={45} 
         width={340} 
@@ -131,29 +164,6 @@ export const Register:React.FC = () => {
         radius={10}
         />
 
-        <View style={styles.gender}>
-        <RNPickerSelect
-          onValueChange={(value) => setSexo(value)}
-          items={[
-            { label: "Masculino", key: "Masculino", value: "Masculino" },
-            { label: "Feminino", key: "Feminino", value: "Feminino" },
-            { label: "Outros", key: "Outros",  value: "Outros"}]}
-            placeholder={{ label: "Sexo", value: null}}
-            style={pickerStyles} />
-        </View>
-
-      <CustomInput 
-        height={45}
-        width={340}
-        placeholder="Data de nascimento"
-        onChangeText={(text) => setDataNascimento(text)}
-        placeholderColor="#868686"
-        color="#e9dfdf"
-        border={1}
-        borderColor="#868686"
-        padding={15}
-        radius={10}
-        />
         <CustomButton title="Criar" onPress={handleSignUp} border={1} bgColor="grey" color="#FFFFFF" width={340} padding={16} radius={12} size={16}/>
     </View>
   </View>

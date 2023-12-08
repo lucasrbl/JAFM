@@ -16,7 +16,7 @@ type StackParams = {
   Home: undefined;
   ReportsForms: undefined;
   LoggedTab: undefined;
-  ReportsPerformance: undefined;
+  ReportsPerformance: { nome: string };
 }
 
 export type StackTypes =  StackNavigationProp<StackParams>;

@@ -7,6 +7,10 @@ import { db } from "../../../src/config/firebase";
 import { useNavigation } from "@react-navigation/core";
 import { StackTypes } from "../../routes/AppNavigator";
 
+interface Report {
+  nome: string;
+}
+
 export const Reports: React.FC = () => {
   const [userUid, setUserUid] = useState("");
   const [documentFound, setDocumentFound] = useState<string | null>(null);
@@ -71,7 +75,7 @@ export const Reports: React.FC = () => {
             <CustomText text="Nomes" color="#FFFFFF" size={24} fontWeight="bold" />
             <View style={styles.studentsContainer}>
                 {reportsWithId.map((report) => (
-                <TouchableOpacity key={report.id} onPress={() => navigation.navigate("ReportsPerformance")}>
+                <TouchableOpacity key={report.id} onPress={() => navigation.navigate("ReportsPerformance", report)}>
                   <CustomText key={report.id} text={report.nome} color="#FFFFFF" size={17} fontWeight="bold" backgroundColor="#7B4296" padding={15} radius={8} />
                 </TouchableOpacity>
                 ))}

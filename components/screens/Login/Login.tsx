@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native"
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native"
 import { CustomInput } from "../../CustomInput/CustomInput";
 import { CustomText } from "../../CustomText/CustomText";
 import { CustomButton } from "../../CustomButton/CustomButton";
@@ -8,27 +8,29 @@ import { StackTypes } from "../../routes/AppNavigator"
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../src/config/firebase";
 
+
 export const Login:React.FC = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [errorLogin, setErrorLogin] = useState(false);
   const navigation = useNavigation<StackTypes>();
-    auth;
-    const login = () => {
-                signInWithEmailAndPassword(auth, email, pass)
-                  .then((userCredential) => {
-                    // Signed in
-                    const user = userCredential.user;
-                    navigation.navigate("Tab")
-                    // ...
-                  })
-                  .catch((error) => {
-                    setErrorLogin(true)
-                    const errorCode = error.code;
-                    const errorMessage = error.message
-                    console.log("login incorreto" + errorCode + errorMessage);
-                  });
+  auth;
+  const login = () => {
+    signInWithEmailAndPassword(auth, email, pass)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      navigation.navigate("Tab")
+      // ...
+    })
+    .catch((error) => {
+      setErrorLogin(true)
+      const errorCode = error.code;
+      const errorMessage = error.message
+      console.log("login incorreto" + errorCode + errorMessage);
+    });
     }
+
     
   return (
   <View style={styles.wrapper}>
@@ -50,6 +52,7 @@ export const Login:React.FC = () => {
                 padding={15}
                 radius={10}
                 />
+                
             
             <CustomInput 
                 height={45} 
@@ -63,6 +66,7 @@ export const Login:React.FC = () => {
                 padding={15}
                 radius={10}
                 />
+
                 <CustomButton title="Entrar" border={1} bgColor="grey" color="#FFFFFF" width={340} padding={16} radius={12} size={16} marginTop={30} onPress={login}/>
                 <CustomButton title="Esqueceu a senha?" border={1} color="#77767E" width={340} padding={16} radius={12} size={16}/>
                 {errorLogin && (
@@ -92,5 +96,10 @@ const styles = StyleSheet.create({
       flex: 3,
       gap: 20
     },
+
+    eyeSocket: {
+      bottom: 55,
+      left: 300
+    }
 
   })

@@ -1,9 +1,11 @@
-import { createBottomTabNavigator, BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator, BottomTabNavigationProp, BottomTabBar } from "@react-navigation/bottom-tabs";
 import React from "react"
 import { Reports } from "../screens/Reports/Reports";
 import { Profile } from "../screens/Profile/Profile";
 import { ReportsForms } from "../screens/ReportsForms/ReportsForms";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { colors } from "../../assets/colors";
+import { CustomText } from "../CustomText/CustomText";
 
 
  type TabParams = {
@@ -23,47 +25,63 @@ const Tab = createBottomTabNavigator();
         <Tab.Navigator>
             <Tab.Screen name="Relatórios" component={Reports} options={{
                 headerShown: false,
-                tabBarIcon: () => (
-                    <MaterialCommunityIcons name="file-chart" size={30} />
+
+                tabBarIcon: ({ focused }) => (
+                    <MaterialCommunityIcons name="file-chart" size={30} color={focused ? colors.yellowColor : colors.lightGreyColor} />
                    ),
                 
                    tabBarStyle: {
-                    backgroundColor: "#d44a4a"
+                    backgroundColor: colors.greyColor,
+                    borderColor: colors.darkGreyColor,
+                    borderTopLeftRadius: 10,
+                    borderTopRightRadius: 10,
+                    overflow: "hidden",
+                    position: "absolute"
                    },
                 
-                   tabBarLabelStyle: {
-                    fontSize: 12,
-                    color: "#161416"},
+                   tabBarLabel: ({ focused }) => {
+                    return <CustomText text="Relatórios" size={12} color={focused ? colors.yellowColor : colors.lightGreyColor} />
+                  },
                 }}
                 />
             <Tab.Screen name="Gerar Relatórios" component={ReportsForms} options={{
                     headerShown: false,
-                    tabBarIcon: () => (
-                        <MaterialCommunityIcons name="pencil" size={30} />
+                    tabBarIcon: ({ focused }) => (
+                        <MaterialCommunityIcons name="pencil" size={30} color={focused ? colors.yellowColor : colors.lightGreyColor} />
                        ),
                     
                        tabBarStyle: {
-                        backgroundColor: "#d44a4a"
+                        backgroundColor: colors.greyColor,
+                        borderColor: colors.darkGreyColor,
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10,
+                        overflow: "hidden",
+                        position: "absolute"
                        },
-                    
-                       tabBarLabelStyle: {
-                        fontSize: 12,
-                        color: "#161416"},
+
+                       tabBarLabel: ({ focused }) => {
+                        return <CustomText text="Gerar Relatórios" size={12} color={focused ? colors.yellowColor : colors.lightGreyColor} />
+                       },
             }}
             />
             <Tab.Screen name="Perfil" component={Profile} options={{
                 headerShown: false,
-                tabBarIcon: () => (
-                    <MaterialCommunityIcons name="account" size={30} />
+                tabBarIcon: ({ focused }) => (
+                    <MaterialCommunityIcons name="account" size={30} color={focused ? colors.yellowColor : colors.lightGreyColor}  />
                    ),
                 
                    tabBarStyle: {
-                    backgroundColor: "#d44a4a"
+                    backgroundColor: colors.greyColor,
+                    borderColor: colors.darkGreyColor,
+                    borderTopLeftRadius: 10,
+                    borderTopRightRadius: 10,
+                    overflow: "hidden",
+                    position: "absolute"
                    },
                 
-                   tabBarLabelStyle: {
-                    fontSize: 12,
-                    color: "#161416"},
+                   tabBarLabel: ({ focused }) => {
+                    return <CustomText text="Perfil" size={12} color={focused ? colors.yellowColor : colors.lightGreyColor} />
+                   },
             }}
             />
         </Tab.Navigator>
