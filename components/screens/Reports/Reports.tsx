@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { CustomText } from "../../CustomText/CustomText";
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity, ScrollView } from "react-native";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../../src/config/firebase";
 import { useNavigation } from "@react-navigation/core";
 import { StackTypes } from "../../routes/AppNavigator";
+import CardInfos from "../../CardInfos/CardInfos";
 
 interface Report {
   nome: string;
@@ -59,6 +60,7 @@ export const Reports: React.FC = () => {
     }
   };
 
+
   useEffect(() => {
     checkDocument();
   }, [userUid]);
@@ -72,15 +74,16 @@ export const Reports: React.FC = () => {
         {documentFound === "Existe" ? (
           // Display the reports if they exist
           <View style={styles.reportsContainer}>
-            <CustomText text="Nomes" color="#FFFFFF" size={24} fontWeight="bold" />
+            <CustomText text="Nomes" color="#FFFFFF" size={18} fontWeight="normal" />
             <View style={styles.studentsContainer}>
-                {reportsWithId.map((report) => (
-                <TouchableOpacity key={report.id} onPress={() => navigation.navigate("ReportsPerformance", report)}>
-                  <CustomText key={report.id} text={report.nome} color="#FFFFFF" size={17} fontWeight="bold" backgroundColor="#7B4296" padding={15} radius={8} />
-                </TouchableOpacity>
-                ))}
+              <ScrollView style={styles.scroll}>
+                {reportsWithId.map((report) =>
+                  < CardInfos name={report.nome} email={report.email} birthdata={report.dataNascimento} number={report.telefone} onPress={() => navigation.navigate("ReportsPerformance", report)} />
+                )
+                }
+              </ScrollView>
             </View>
-        </View>
+          </View>
 
         ) : (
           // Display a message if no reports are found
@@ -96,65 +99,73 @@ export const Reports: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-    wrapper: {
-        backgroundColor: "#000000",
-        flex: 1,
-        justifyContent: "center"
-    },
+  wrapper: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#000000",
+    flex: 1,
+    justifyContent: "center"
+  },
 
-    content: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 5
-    },
+  content: {
+    height: "100%",
+    width: "100%",
+    flex: 1,
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    gap: 5,
+  },
 
-    image: {
-        width: 400,
-        height: 100
-    },
+  image: {
+    width: 400,
+    height: 100
+  },
 
-    button: {
-        width: 300,
-        alignSelf: "center",
-        borderRadius: 8
-    },
-    
-    buttonContainer: {
-        alignSelf: "center",
-        position: "absolute",
-        bottom: 150
-    },
+  button: {
+    width: 300,
+    alignSelf: "center",
+    borderRadius: 8
+  },
 
-    titleContainer: {
-        alignSelf: "flex-start",
-        paddingLeft: 10,
-        bottom: 150
-    },
+  buttonContainer: {
+    alignSelf: "center",
+    position: "absolute",
+  },
 
-    NoReportsContainer: {
-      alignItems: "center"
-    },
+  titleContainer: {
+    alignSelf: "flex-start",
+    paddingLeft: 10,
+    marginTop: 70,
+  },
 
-    roundedLine: {
-      height: 0.5,
-      width: "100%",
-      backgroundColor: "#77767E",
-      borderTopLeftRadius: 5,
-      borderTopRightRadius: 5
-    },
+  NoReportsContainer: {
+    alignItems: "center"
+  },
 
-    studentsContainer: {
-      marginTop: 10,
-      width: 340,
-      borderRadius: 8,
-      paddingTop: 8,
-      paddingBottom: 8,
-      paddingLeft: 15,
-      gap: 20
-    },
+  roundedLine: {
+    height: 0.5,
+    width: "100%",
+    backgroundColor: "#77767E",
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5
+  },
 
-    reportsContainer: {
-      bottom: 120
-    }
+  studentsContainer: {
+    marginTop: 10,
+    width: "100%",
+    borderRadius: 8,
+    paddingTop: 8,
+    paddingBottom: 8,
+  },
+
+  scroll: {
+    width: "100%",
+    height: "auto"
+  },
+
+  reportsContainer: {
+    width: "100%",
+    paddingHorizontal: 16,
+    marginTop: 12
+  }
 })

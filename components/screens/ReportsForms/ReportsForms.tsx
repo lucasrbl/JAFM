@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native"
+import { View, StyleSheet, ScrollView } from "react-native"
 import { CustomInput } from "../../CustomInput/CustomInput";
 import { CustomText } from "../../CustomText/CustomText";
 import { CustomButton } from "../../CustomButton/CustomButton";
@@ -8,7 +8,7 @@ import { db } from "../../../src/config/firebase";
 import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import { LinearGradient } from "expo-linear-gradient"
 
-export const ReportsForms:React.FC = () => {
+export const ReportsForms: React.FC = () => {
 
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
@@ -31,7 +31,7 @@ export const ReportsForms:React.FC = () => {
   }, []);
 
   const geraRelatorio = async () => {
-    try { 
+    try {
       await addDoc(collection(db, "Reports"), {
         nome,
         email,
@@ -47,69 +47,73 @@ export const ReportsForms:React.FC = () => {
 
   return (
     <View style={styles.wrapper}>
-  
-      <View style={styles.containerText}>
-        <CustomText text="Gerar Relatórios" fontWeight="bold" size={40} color="#FFFFFF"/>
-      </View>
-  
-      <View style={styles.inputContainer}>
-          <CustomInput 
-              height={45} 
-              width={340} 
-              placeholder="Nome completo"
-              onChangeText={(text) => setNome(text)}
-              placeholderColor="#868686" 
-              color="#e9dfdf" 
-              border={1} 
-              borderColor="#868686" 
-              padding={15}
-              radius={10} 
-              />
-  
-          <CustomInput 
-              height={45} 
-              width={340} 
-              placeholder="Email"
-              onChangeText={(text) => setEmail(text)}
-              placeholderColor="#868686" 
-              color="#e9dfdf" 
-              border={1} 
-              borderColor="#868686" 
-              padding={15}
-              radius={10}
-              />
-  
-          <CustomInput 
-              height={45} 
-              width={340} 
-              placeholder="Telefone"
-              onChangeText={(text) => setTelefone(text)}
-              placeholderColor="#868686" 
-              color="#e9dfdf" 
-              border={1} 
-              borderColor="#868686" 
-              padding={15}
-              radius={10}
-              />
-  
-          <CustomInput 
-              height={45}
-              width={340}
-              placeholder="Data de nascimento"
-              onChangeText={(text) => setDataNascimento(text)}
-              placeholderColor="#868686"
-              color="#e9dfdf"
-              border={1}
-              borderColor="#868686"
-              padding={15}
-              radius={10}
-              />
-              <LinearGradient colors={["#F65151", "#A33333"]} style={styles.button}>
-                   <CustomButton onPress={geraRelatorio} title="Gerar Relatório" width={300} padding={16} size={16} color="#FFFFFF"/>
-              </LinearGradient>
-      </View>
+      <ScrollView>
+
+
+        <View style={styles.containerText}>
+          <CustomText text="Gerar Relatórios" fontWeight="bold" size={40} color="#FFFFFF" />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <CustomInput
+            height={45}
+            width={340}
+            placeholder="Nome completo"
+            onChangeText={(text) => setNome(text)}
+            placeholderColor="#868686"
+            color="#e9dfdf"
+            border={1}
+            borderColor="#868686"
+            padding={15}
+            radius={10}
+          />
+
+          <CustomInput
+            height={45}
+            width={340}
+            placeholder="Email"
+            onChangeText={(text) => setEmail(text)}
+            placeholderColor="#868686"
+            color="#e9dfdf"
+            border={1}
+            borderColor="#868686"
+            padding={15}
+            radius={10}
+          />
+
+          <CustomInput
+            height={45}
+            width={340}
+            placeholder="Telefone"
+            onChangeText={(text) => setTelefone(text)}
+            placeholderColor="#868686"
+            color="#e9dfdf"
+            border={1}
+            borderColor="#868686"
+            padding={15}
+            radius={10}
+          />
+
+          <CustomInput
+            height={45}
+            width={340}
+            placeholder="Data de nascimento"
+            onChangeText={(text) => setDataNascimento(text)}
+            placeholderColor="#868686"
+            color="#e9dfdf"
+            border={1}
+            borderColor="#868686"
+            padding={15}
+            radius={10}
+          />
+          <LinearGradient colors={["#F65151", "#A33333"]} style={styles.button}>
+            <CustomButton onPress={geraRelatorio} title="Gerar Relatório" width={300} padding={16} size={16} color="#FFFFFF" />
+          </LinearGradient>
+        </View>
+      </ScrollView>
+
     </View>
-    )
+  )
 }
 
 const styles = StyleSheet.create({

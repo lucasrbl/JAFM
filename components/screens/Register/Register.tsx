@@ -56,10 +56,6 @@ export const Register: React.FC = () => {
     placeholder: { color: "#868686" },
   };
 
-  useEffect(() => {
-    setPassVisibility(true)  
-  },[])
-
   return (
     <ScrollView style={styles.scroll}>
 

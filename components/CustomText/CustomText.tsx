@@ -13,6 +13,7 @@ interface Props {
     backgroundColor?: string;
     padding?: number;
     radius?: number;
+    textAlign?: string
 }
 
 
@@ -29,8 +30,9 @@ export const CustomText: React.FC<Props> = ({
     marginTop,
     backgroundColor,
     padding,
-    radius
-}) =>{
+    radius,
+    textAlign
+}) => {
     const styles = StyleSheet.create({
         text: {
             fontSize: size,
@@ -41,7 +43,8 @@ export const CustomText: React.FC<Props> = ({
             marginTop: marginTop,
             backgroundColor: backgroundColor,
             padding: padding,
-            borderRadius: radius
+            borderRadius: radius,
+            textAlign: textAlign,
         }
     })
 
