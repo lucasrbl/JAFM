@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { View, StyleSheet } from "react-native"
+import { View, StyleSheet, ScrollView } from "react-native"
 import { CustomText } from "../../CustomText/CustomText"
 import * as Progress from "react-native-progress"
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
@@ -26,16 +26,16 @@ export const ReportsPerformance: React.FC = () => {
         setCv(generateRandomNumber());
         setUserInfo(generateRandomNumber());
         // Definindo o valor de performance como a média calculada
-    },[])
-    
+    }, [])
+
     useEffect(() => {
         if (tasks !== undefined && attendance !== undefined && cv !== undefined && userInfo !== undefined) {
             const average = (tasks + attendance + cv + userInfo) / 4;
-            setPerformance(average);
-        }
+            setPerformance(Math.round(average));
+}
     }, [tasks, attendance, cv, userInfo]);
-    
-    const html = `
+
+const html = `
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -132,65 +132,67 @@ export const ReportsPerformance: React.FC = () => {
 
 
 
-    const handlePDF = async() => {
-        const file = await printToFileAsync({
-            html: html,
-            base64: false
-        })
-        await shareAsync(file.uri)
-    }
+const handlePDF = async () => {
+    const file = await printToFileAsync({
+        html: html,
+        base64: false
+    })
+    await shareAsync(file.uri)
+}
 
-    return (
-        <View style={styles.wrapper}>
-            <View style={{gap: 45}}>
-                <CustomText text="Desempenho individual" color="#FFFFFF" />
+return (
+    <View style={styles.wrapper}>
+        <ScrollView>
+
+            <View style={{ gap: 45 }}>
+                <CustomText text="Desempenho individual" color="#FFFFFF" size={16} />
                 <CustomText text={`teste`} color="#FFFFFF" fontWeight="bold" size={25} />
             </View>
-            <View style={styles.cardContainer}> 
+            <View style={styles.cardContainer}>
                 <View style={styles.card}>
                     <View style={styles.leftSide}>
-                        <CustomText text={`${tasks}%`} color={tasks && tasks > 50 ? "#04BE00" : "#F65151"}   size={32} fontWeight="bold" />
+                        <CustomText text={`${tasks}%`} color={tasks && tasks > 50 ? "#04BE00" : "#F65151"} size={32} fontWeight="bold" />
                         <CustomText text="Tarefas concluídas" color="#77767E" />
                     </View>
                     <View style={styles.roundedLine} />
                     <View style={styles.rightSide}>
-                        <CustomText text={`${attendance}%`} color={attendance && attendance > 50 ? "#04BE00" : "#F65151"}  size={32} fontWeight="bold" />
+                        <CustomText text={`${attendance}%`} color={attendance && attendance > 50 ? "#04BE00" : "#F65151"} size={32} fontWeight="bold" />
                         <CustomText text="Presença" color="#77767E" />
                     </View>
                 </View>
 
                 <View style={styles.card}>
                     <View style={styles.leftSide}>
-                        <CustomText text={`${cv}%`} color={cv && cv > 50 ? "#04BE00" : "#F65151"}   size={32} fontWeight="bold" />
+                        <CustomText text={`${cv}%`} color={cv && cv > 50 ? "#04BE00" : "#F65151"} size={32} fontWeight="bold" />
                         <CustomText text="Currículo concluído" color="#77767E" />
                     </View>
 
                     <View style={styles.roundedLine} />
 
                     <View style={styles.rightSide}>
-                        <CustomText text={`${userInfo}%`} color={userInfo && userInfo > 50 ? "#04BE00" : "#F65151"}   size={32} fontWeight="bold" />
-                        <CustomText text="Informações de cadastro na plataforma" color="#77767E" width={150} />
+                        <CustomText text={`${userInfo}%`} color={userInfo && userInfo > 50 ? "#04BE00" : "#F65151"} size={32} fontWeight="bold" />
+                        <CustomText text="Informações de cadastro na plataforma" color="#77767E" textAlign="center" width={150} />
                     </View>
                 </View>
 
                 <View style={styles.card}>
                     <View style={styles.leftSide}>
-                        <CustomText text={`${performance}%`} color={performance && performance > 50 ? "#04BE00" : "#F65151"}   size={32} fontWeight="bold" />
+                        <CustomText text={`${performance}%`} color={performance && performance > 50 ? "#04BE00" : "#F65151"} size={48} fontWeight="bold" />
                     </View>
 
                     <View style={styles.roundedLine} />
 
                     <View style={styles.rightSide}>
-                        <CustomText text="Desempenho total" color="#77767E" size={20} width={120} />
+                        <CustomText text="Desempenho total" color="#77767E" size={20} width={120} textAlign="center" />
                     </View>
                 </View>
             </View>
 
-            <CustomText text="Média do estudante" color="#FFFFFF" />
+            <CustomText text="Média do estudante" marginTop={18} color="#FFFFFF" />
 
             <View style={styles.averageContainer}>
                 <View>
-                    <Progress.Bar progress={0.04} width={320} height={25} borderRadius={8} style={{
+                    <Progress.Bar color="#7B4296" progress={0.04} width={320} height={25} borderRadius={8} style={{
                         marginTop: 15,
                         marginLeft: 12
                     }} />
@@ -203,55 +205,56 @@ export const ReportsPerformance: React.FC = () => {
                 </View>
 
                 <View>
-                    <Progress.Bar progress={0.6} width={320} height={25} borderRadius={8} style={styles.averageBar} 
+                    <Progress.Bar color="#7B4296" progress={0.6} width={320} height={25} borderRadius={8} style={styles.averageBar}
                     />
-                    <View style={{ 
-                        bottom: 25,
-                        left: 20
-                    }}>
-                        <CustomText text="Desempenho > 80%   28 alunos" color="#FFFFFF"  />
-                    </View>
-                </View>
-                <View>
-                    <Progress.Bar progress={0.5} width={320} height={25} borderRadius={8} style={styles.averageBar} />
                     <View style={{
                         bottom: 25,
                         left: 20
                     }}>
-                        <CustomText text="Desempenho > 60%   2 alunos" color="#FFFFFF"  />
+                        <CustomText text="Desempenho > 80%   28 alunos" color="#FFFFFF" />
                     </View>
                 </View>
                 <View>
-                    <Progress.Bar progress={0.4} width={320} height={25} borderRadius={8} style={styles.averageBar} />
+                    <Progress.Bar color="#7B4296" progress={0.5} width={320} height={25} borderRadius={8} style={styles.averageBar} />
                     <View style={{
                         bottom: 25,
                         left: 20
                     }}>
-                        <CustomText text="Desempenho > 40%   6 alunos" color="#FFFFFF"  />
+                        <CustomText text="Desempenho > 60%   2 alunos" color="#FFFFFF" />
                     </View>
                 </View>
                 <View>
-                    <Progress.Bar progress={0} width={320} height={25} borderRadius={8} style={styles.averageBar} />
+                    <Progress.Bar color="#7B4296" progress={0.4} width={320} height={25} borderRadius={8} style={styles.averageBar} />
                     <View style={{
                         bottom: 25,
                         left: 20
                     }}>
-                        <CustomText text="Desempenho > 20%   0 alunos" color="#FFFFFF"  />
+                        <CustomText text="Desempenho > 40%   6 alunos" color="#FFFFFF" />
                     </View>
                 </View>
                 <View>
-                    <Progress.Bar progress={0} width={320} height={25} borderRadius={8} style={styles.averageBar} />
+                    <Progress.Bar color="#7B4296" progress={0} width={320} height={25} borderRadius={8} style={styles.averageBar} />
                     <View style={{
                         bottom: 25,
                         left: 20
                     }}>
-                        <CustomText text="Desempenho > 10%   0 alunos" color="#FFFFFF"  />
-                   <CustomButton onPress={handlePDF} title="Gerar PDF" width={300} padding={16} size={16} color="#FFFFFF" marginTop={20}/>
+                        <CustomText text="Desempenho > 20%   0 alunos" color="#FFFFFF" />
+                    </View>
+                </View>
+                <View>
+                    <Progress.Bar color="#7B4296" progress={0} width={320} height={25} borderRadius={8} style={styles.averageBar} />
+                    <View style={{
+                        bottom: 25,
+                        left: 20
+                    }}>
+                        <CustomText text="Desempenho > 10%   0 alunos" color="#FFFFFF" />
+                        <CustomButton onPress={handlePDF} title="Gerar PDF" width={300} padding={16} size={16} color="#FFFFFF" marginTop={20} />
                     </View>
                 </View>
             </View>
-        </View>
-    )
+        </ScrollView>
+    </View>
+)
 }
 
 const styles = StyleSheet.create({
@@ -270,16 +273,19 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center"
     },
-    
+
     cardContainer: {
-        gap: 15
+        gap: 15,
+        marginTop: 12,
     },
 
     averageContainer: {
         width: 340,
         height: 290,
-        backgroundColor: "#232326"
-        
+        backgroundColor: "#232326",
+        marginTop: 12,
+        borderRadius: 12
+
     },
 
     progressContainer: {
@@ -288,7 +294,7 @@ const styles = StyleSheet.create({
     },
 
     averageBar: {
-        marginLeft: 10
+        marginLeft: 10,
     },
 
     roundedLine: {
@@ -303,21 +309,21 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-      },
-    
-      rightSide: {
+    },
+
+    rightSide: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-      },
+    },
 
-      progressText: {
+    progressText: {
         position: "absolute"
-      },
+    },
 
-      button: {
+    button: {
         width: 300,
         alignSelf: "center",
         borderRadius: 8
-      },
+    },
 })
