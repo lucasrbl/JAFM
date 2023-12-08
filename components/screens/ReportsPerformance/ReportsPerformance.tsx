@@ -18,18 +18,6 @@ export const ReportsPerformance: React.FC = () => {
     const [performance, setPerformance] = useState<number>()
     const navigation = useNavigation<StackTypes>();
 
-    type Params = {
-        nome: string;
-    }
-
-
-    const route = useRoute<RouteProp<Record<string, Params>, string>>();
-
-    const {
-        nome
-    } = route.params
-
-
     useEffect(() => {
         const generateRandomNumber = () => Math.floor(Math.random() * 100);
 
@@ -156,7 +144,7 @@ export const ReportsPerformance: React.FC = () => {
         <View style={styles.wrapper}>
             <View style={{gap: 45}}>
                 <CustomText text="Desempenho individual" color="#FFFFFF" />
-                <CustomText text={`${nome}`} color="#FFFFFF" fontWeight="bold" size={25} />
+                <CustomText text={`teste`} color="#FFFFFF" fontWeight="bold" size={25} />
             </View>
             <View style={styles.cardContainer}> 
                 <View style={styles.card}>
