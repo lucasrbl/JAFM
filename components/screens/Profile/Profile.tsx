@@ -2,7 +2,6 @@ import React from "react"
 import { View, StyleSheet } from "react-native"
 import { CustomButton } from "../../CustomButton/CustomButton"
 import { CustomText } from "../../CustomText/CustomText"
-import { CustomInput } from "../../CustomInput/CustomInput"
 import { useNavigation} from "@react-navigation/core"
 import { StackTypes } from "../../routes/AppNavigator"
 

@@ -25,7 +25,6 @@ export const Register: React.FC = () => {
   const [show, setShow] = useState(false)
 
   const navigation = useNavigation<StackTypes>();
-
   const handleSignUp = async () => {
     try {
       // Crie o usuário no Firebase Authentication
@@ -56,6 +55,10 @@ export const Register: React.FC = () => {
     inputAndroid: styles.pickerInput,
     placeholder: { color: "#868686" },
   };
+
+  useEffect(() => {
+    setPassVisibility(true)  
+  },[])
 
   return (
     <ScrollView style={styles.scroll}>

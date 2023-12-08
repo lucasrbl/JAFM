@@ -2,17 +2,32 @@ import React, { useEffect, useState } from "react"
 import { View, StyleSheet } from "react-native"
 import { CustomText } from "../../CustomText/CustomText"
 import * as Progress from "react-native-progress"
+import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { CustomButton } from "../../CustomButton/CustomButton";
 import { printToFileAsync } from "expo-print"
 import { shareAsync } from "expo-sharing"
+import { StackTypes } from "../../routes/AppNavigator";
 
 
 export const ReportsPerformance: React.FC = () => {
+    const [total, setTotal] = useState<number>();
     const [tasks, setTasks] = useState<number>()
     const [attendance, setAttendance] = useState<number>()
     const [cv, setCv] = useState<number>()
     const [userInfo, setUserInfo] = useState<number>()
     const [performance, setPerformance] = useState<number>()
+    const navigation = useNavigation<StackTypes>();
+
+    type Params = {
+        nome: string;
+    }
+
+
+    const route = useRoute<RouteProp<Record<string, Params>, string>>();
+
+    const {
+        nome
+    } = route.params
 
 
     useEffect(() => {
@@ -139,8 +154,9 @@ export const ReportsPerformance: React.FC = () => {
 
     return (
         <View style={styles.wrapper}>
-            <View>
+            <View style={{gap: 45}}>
                 <CustomText text="Desempenho individual" color="#FFFFFF" />
+                <CustomText text={`${nome}`} color="#FFFFFF" fontWeight="bold" size={25} />
             </View>
             <View style={styles.cardContainer}> 
                 <View style={styles.card}>
