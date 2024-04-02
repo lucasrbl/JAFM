@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, ScrollView } from "react-native"
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native"
 import { CustomInput } from "../../CustomInput/CustomInput";
 import { CustomText } from "../../CustomText/CustomText";
 import { CustomButton } from "../../CustomButton/CustomButton";
@@ -21,12 +21,7 @@ export const Register:React.FC = () => {
   const [telefone, setTelefone] = useState("");
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
-  const [ra, setRA] = useState("");
-  const [cpnj, setCPNJ] = useState("");
-  const [progresso, setProgresso] = useState(0);
-  const [empregado, setEmpregado] = useState(true);
-  const [turma, setTurma] = useState("");
-  const [dataInicio, setDataInicio] = useState("");
+  const [sexo, setSexo] = useState("");
   const [userID, setUserUid] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const navigation = useNavigation<StackTypes>();
@@ -42,17 +37,12 @@ export const Register:React.FC = () => {
       // Salve outras informações do usuário na coleção "users"
 
       await setDoc(doc(db, "users", user.uid), {
-        ra,
-        cpnj,
-        cpf,
-        dataInicio,
-        dataNascimento,
         email,
-        empregado,
-        nome,
-        progresso,
         telefone,
-        turma,
+        nome,
+        cpf,
+        sexo,
+        dataNascimento,
         userID
       });
 
@@ -62,16 +52,6 @@ export const Register:React.FC = () => {
       console.error("Erro ao cadastrar usuário:", error);
     }
   };
-
-  const handleJob = (value: string) => {
-    if(value === "Sim") {
-      setEmpregado(true)
-    }
-    else {
-      setEmpregado(false)
-    }
-    console.log(empregado)
-  }
 
   const pickerStyles = {
     inputIOS: styles.pickerInput,
@@ -84,7 +64,7 @@ export const Register:React.FC = () => {
   },[])
 
   return (
-  <ScrollView contentContainerStyle={styles.wrapper}>
+  <View style={styles.wrapper}>
 
     <View style={styles.containerText}>
       <CustomText text="Criar conta" fontWeight="bold" size={20} color="#FFFFFF"/>
@@ -93,24 +73,10 @@ export const Register:React.FC = () => {
 
     <View style={styles.inputContainer}>
       <CustomInput 
-         height={45} 
-         width={340} 
-         placeholder="RA"
-         onChangeText={(text) => setRA(text)}
-         placeholderColor="#868686" 
-         color="#e9dfdf" 
-         border={1} 
-         borderColor="#868686" 
-         padding={15}
-         radius={10}
-         />  
-
-
-    <CustomInput 
         height={45} 
         width={340} 
-        placeholder="CPNJ da empresa"
-        onChangeText={(text) => setCPNJ(text)}
+        placeholder="Email"
+        onChangeText={(text) => setEmail(text)}
         placeholderColor="#868686" 
         color="#e9dfdf" 
         border={1} 
@@ -119,6 +85,31 @@ export const Register:React.FC = () => {
         radius={10}
         />
 
+      <CustomInput 
+        height={45} 
+        width={340} 
+        placeholder="Telefone"
+        onChangeText={(text) => setTelefone(text)}
+        placeholderColor="#868686" 
+        color="#e9dfdf" 
+        border={1} 
+        borderColor="#868686" 
+        padding={15}
+        radius={10}
+        />
+        
+      <CustomInput 
+        height={45} 
+        width={340} 
+        placeholder="Nome completo"
+        onChangeText={(text) => setNome(text)}
+        placeholderColor="#868686" 
+        color="#e9dfdf" 
+        border={1} 
+        borderColor="#868686" 
+        padding={15}
+        radius={10}
+        />
 
       <CustomInput 
         height={45} 
@@ -133,19 +124,17 @@ export const Register:React.FC = () => {
         radius={10}
         />
 
-      <CustomInput 
-        height={45} 
-        width={340} 
-        placeholder="Data de Início"
-        onChangeText={(text) => setDataInicio(text)}
-        placeholderColor="#868686"
-        color="#e9dfdf" 
-        border={1} 
-        borderColor="#868686" 
-        padding={15}
-        radius={10}
-        />
 
+        <View style={styles.gender}>
+        <RNPickerSelect
+          onValueChange={(value) => setSexo(value)}
+          items={[
+            { label: "Masculino", key: "Masculino", value: "Masculino" },
+            { label: "Feminino", key: "Feminino", value: "Feminino" },
+            { label: "Outros", key: "Outros",  value: "Outros"}]}
+            placeholder={{ label: "Sexo", value: null}}
+            style={pickerStyles} />
+        </View>
 
         <CustomInput 
           height={45}
@@ -165,46 +154,8 @@ export const Register:React.FC = () => {
       <CustomInput 
         height={45} 
         width={340} 
-        placeholder="Email"
-        onChangeText={(text) => setEmail(text)}
-        placeholderColor="#868686" 
-        color="#e9dfdf" 
-        border={1} 
-        borderColor="#868686" 
-        padding={15}
-        radius={10}
-        />
-
-      <View style={styles.dropdown}>
-        <RNPickerSelect
-          onValueChange={(value) => handleJob(value)}
-          items={[
-            { label: "Sim", key: "Sim", value: "Sim" },
-            { label: "Não", key: "Não", value: "Não" }]}
-            placeholder={{ label: "Empregado", value: null}}
-            style={pickerStyles} />
-        </View>
-
-        
-      <CustomInput 
-        height={45} 
-        width={340} 
-        placeholder="Nome completo"
-        onChangeText={(text) => setNome(text)}
-        placeholderColor="#868686" 
-        color="#e9dfdf" 
-        border={1} 
-        borderColor="#868686" 
-        padding={15}
-        radius={10}
-        />
-
-
-      <CustomInput 
-        height={45} 
-        width={340} 
-        placeholder="Progresso (digite um número de 0 a 100, como um percentual)"
-        onChangeText={(text) => setProgresso(Number(text))}
+        placeholder="Senha"
+        onChangeText={(text) => setPass(text)}
         placeholderColor="#868686" 
         color="#e9dfdf" 
         border={1} 
@@ -213,40 +164,16 @@ export const Register:React.FC = () => {
         radius={10}
         />
 
-      <CustomInput 
-        height={45} 
-        width={340} 
-        placeholder="Telefone"
-        onChangeText={(text) => setTelefone(text)}
-        placeholderColor="#868686" 
-        color="#e9dfdf" 
-        border={1} 
-        borderColor="#868686" 
-        padding={15}
-        radius={10}
-        />
-
-      <CustomInput 
-        height={45} 
-        width={340} 
-        placeholder="Turma"
-        onChangeText={(text) => setTurma(text)}
-        placeholderColor="#868686" 
-        color="#e9dfdf" 
-        border={1} 
-        borderColor="#868686" 
-        padding={15}
-        radius={10}
-        />
         <CustomButton title="Criar" onPress={handleSignUp} border={1} bgColor="grey" color="#FFFFFF" width={340} padding={16} radius={12} size={16}/>
     </View>
-  </ScrollView>
+  </View>
   )
 }
 const styles = StyleSheet.create({
 
     wrapper: {
     backgroundColor: "#000000",
+    flex: 1,
     justifyContent: "space-between",
     alignItems: "center"
     },
@@ -264,8 +191,7 @@ const styles = StyleSheet.create({
       marginBottom: 50,
       gap: 20
     },
-
-    dropdown: {
+    gender: {
       width: 340,
       height: 45,
       borderWidth: 1,
