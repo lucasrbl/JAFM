@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, ScrollView } from "react-native"
 import { CustomInput } from "../../CustomInput/CustomInput";
-import { CustomText } from "../../CustomText/CustomText";
 import { CustomButton } from "../../CustomButton/CustomButton";
 import RNPickerSelect from "react-native-picker-select";
 import { useNavigation } from "@react-navigation/native"
@@ -9,7 +8,7 @@ import { StackTypes } from "../../routes/AppNavigator"
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../../src/config/firebase";
 import { doc, setDoc } from 'firebase/firestore';
-import { Feather } from '@expo/vector-icons';
+
 
 
 export const Register: React.FC = () => {
@@ -27,7 +26,7 @@ export const Register: React.FC = () => {
   const [dataInicio, setDataInicio] = useState("");
   const [userID, setUserUid] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
-  const [show, setShow] = useState(false)
+
 
   const navigation = useNavigation<StackTypes>();
   const handleSignUp = async () => {
@@ -41,7 +40,6 @@ export const Register: React.FC = () => {
       await setDoc(doc(db, "users", user.uid), {
         ra,
         cpnj,
-
         cpf,
         dataInicio,
         dataNascimento,
@@ -137,7 +135,6 @@ export const Register: React.FC = () => {
         radius={10}
         />
 
-
         <CustomInput 
           height={45}
           width={340}
@@ -161,6 +158,19 @@ export const Register: React.FC = () => {
         color="#e9dfdf" 
         border={1} 
         borderColor="#868686" 
+        padding={15}
+        radius={10}
+        />
+
+      <CustomInput 
+        height={45} 
+        width={340} 
+        placeholder="Senha"
+        onChangeText={(text) => setPass(text)}
+        placeholderColor="#868686" 
+        color="#e9dfdf" 
+        border={1} 
+        borderColor="#868686"
         padding={15}
         radius={10}
         />
