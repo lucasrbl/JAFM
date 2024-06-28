@@ -10,7 +10,6 @@ export const Profile: React.FC = () => {
     const navigation = useNavigation<StackTypes>()
 
 
-
     return (
         <View style={styles.wrapper}>
             <ScrollView>
